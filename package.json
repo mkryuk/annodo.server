@@ -1,0 +1,76 @@
+{
+  "name": "node-ts",
+  "version": "0.0.1",
+  "description": "node-ts",
+  "license": "MIT",
+  "repository": "git@github.com:mkryuk/node-ts.git",
+  "author": "mkryuk@gmail.com",
+  "keywords": [
+    "node",
+    "mongodb",
+    "typescript",
+    "docker"
+  ],
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "npm run clean && npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
+    "clean": "rimraf dist",
+    "e2e:init": "webdriver-manager update",
+    "e2e:rundriver": "webdriver-manager start",
+    "e2e:runtests": "protractor protractor.conf.js",
+    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+    "serve:dev": "nodemon --inspect ./dist/app.js",
+    "serve": "pm2 start pm2.yml && pm2 logs",
+    "start:dev": "npm run build && npm run serve:dev",
+    "start:w": "concurrently \"npm run watch\" \"npm run start:dev\"",
+    "start": "npm run build && npm run serve",
+    "start:prod": "npm run build&&npm run serve",
+    "stop": "pm2 stop all",
+    "test:db": "nodemon --exec jasmine JASMINE_CONFIG_PATH=spec/support/jasmine.db.json",
+    "test:j": "jasmine",
+    "test": "jasmine-node --verbose --junitreport --captureExceptions dist/tests/api",
+    "watch": "npm run build -- --watch"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "concurrently": "^3.5.0",
+    "express": "^4.15.3",
+    "jasmine": "^2.7.0",
+    "jasmine-node": "^1.14.5",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.9",
+    "nodemon": "^1.14.10",
+    "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "pm2": "^2.9.1",
+    "protractor": "^5.2.2",
+    "rimraf": "^2.0.0",
+    "supertest": "^3.0.0",
+    "ts-node": "^4.1.0",
+    "tslint": "^5.0.0",
+    "typescript": "^2.0.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.16.3",
+    "@types/express": "^4.11.0",
+    "@types/jasmine": "^2.8.3",
+    "@types/jsonwebtoken": "^7.2.3",
+    "@types/mongoose": "^4.7.32",
+    "@types/node": "^9.3.0",
+    "@types/passport": "^0.4.2",
+    "@types/passport-http-bearer": "^1.0.30",
+    "@types/passport-local": "^1.0.30",
+    "@types/supertest": "^2.0.2",
+    "@types/uuid": "^3.4.3"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  }
+}
